@@ -11,7 +11,6 @@ model=pickle.load(open('water_model.pkl','rb')) #water potability ML model
 #Water Potability Model --------------------------------------------------------------------------------------------
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 from sklearn.model_selection import (GridSearchCV, KFold, train_test_split, cross_val_score)
 
 df = pd.read_csv('water_potability.csv')
