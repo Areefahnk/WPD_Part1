@@ -39,43 +39,12 @@ df.loc[(df['Potability'] == 1) & (df['Trihalomethanes'].isna()), 'Trihalomethane
 
 X = df.drop('Potability', axis = 1).copy()
 y = df['Potability'].copy()
-#Water Potability Model ------------------------------------------------------------------------------------------------
-from keras.models import load_model
-# Model saved with Keras model.save()
-MODEL_PATH = 'model_vgg19.h5'
+#Water Potability Model -----------------------------------------------------------------------------------------------
 
-# Load your trained model
-quality_model = load_model(MODEL_PATH)
-#prediction = quality_model.predict([[1,2,3,4,5,6,7]])
-#print(prediction)
+
 @app.route('/')
 def hello_world():
     return render_template("waterpotabilitytest.html")
-
-@app.route('/quality',methods=['POST','GET'])
-def quality():
-    float_features = [float(x) for x in request.form.values()]
-    #final = [np.array(float_features)]
-    print(float_features)
-    #print(final)
-    prediction = quality_model.predict([float_features])
-    print(prediction)
-    if prediction[0][0]<=45:
-        return render_template("waterquality.html", pred='Water Quality is Good',
-                               inp='Predicted for inputs:\nDissolved Oxygen(mg/l): %.2f, PH: %.2f, Conductivity: %.1f, Biochemical Oxygen Demand (BOD - mg/l): %.1f, Total Nitrogen (mg/l): %.1f, Fecal Coliform (mg/l): %.1f, Total Coliform (mg/l): %.1f' % (
-                                   float_features[0], float_features[1], float_features[2], float_features[3],
-                                   float_features[4], float_features[5], float_features[6]))
-
-    elif prediction[0][0]<=71:
-        return render_template("waterquality.html", pred='Water Quality is Fair enough',
-                               inp='Predicted for inputs:\nDissolved Oxygen(mg/l): %.2f, PH: %.2f, Conductivity: %.1f, Biochemical Oxygen Demand (BOD - mg/l): %.1f, Total Nitrogen (mg/l): %.1f, Fecal Coliform (mg/l): %.1f, Total Coliform (mg/l): %.1f' % (
-                                   float_features[0], float_features[1], float_features[2], float_features[3],
-                                   float_features[4], float_features[5], float_features[6]))
-
-    else:
-        return render_template("waterquality.html", pred='Water Quality is Poor',
-                           inp='Predicted for inputs:\nDissolved Oxygen(mg/l): %.2f, PH: %.2f, Conductivity: %.1f, Biochemical Oxygen Demand (BOD - mg/l): %.1f, Total Nitrogen (mg/l): %.1f, Fecal Coliform (mg/l): %.1f, Total Coliform (mg/l): %.1f' % (
-                           float_features[0], float_features[1], float_features[2], float_features[3],float_features[4],float_features[5],float_features[6]))
 
 
 @app.route('/predict',methods=['POST','GET'])
