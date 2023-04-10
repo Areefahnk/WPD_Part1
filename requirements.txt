@@ -22,3 +22,12 @@ urllib3==1.26.15
 Werkzeug==2.2.2
 zipp==3.11.0
 gunicorn==20.1.0
+keras
+keras-tuner
+tensorboard
+tensorboard-data-server
+tensorboard-plugin-wit
+tensorflow
+tensorflow-estimator
+tensorflow-intel
+tensorflow-io-gcs-filesystem
